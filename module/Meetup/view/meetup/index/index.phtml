@@ -1,0 +1,20 @@
+<h1>Meetups</h1>
+
+<?php
+
+
+
+?>
+<ul>
+    <?php foreach ($this->meetups as $meetup): /* @var $meetup \Meetup\Entity\Meetup */
+        var_dump($meetup);
+        print_r($meetup);?>
+
+    <li><?= $meetup->getTitle();  ?></li>
+        <ul> <?= $meetup->getDescription(); ?></ul>
+        <p><?= $meetup->getDatedebut()->format('Y-m-d'); ?></p>
+        <p><?= $meetup->getDatefin()->format('Y-m-d'); ?></p>
+    <?php endforeach; ?>
+</ul>
+
+<a href="<?= $this->url('meetups/add'); ?>" class="btn btn-primary">Add new</a>
