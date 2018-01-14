@@ -44,7 +44,13 @@ final class IndexController extends AbstractActionController
         $request = $this->getRequest();
         if ($request->isPost()) {
             $form->setData($request->getPost());
+
+
             if ($form->isValid()) {
+                if(new \DateTimeImmutable($form->getData()['datedebut']) >
+                    new \DateTimeImmutable($form->getData()['datefin'])){
+                    die("Erreur ! la date de fin est antérieure à la date de début");
+                }
                 $this->meetupRepository->createMeetup($form->getData());
                 return $this->redirect()->toRoute('meetups');
             }

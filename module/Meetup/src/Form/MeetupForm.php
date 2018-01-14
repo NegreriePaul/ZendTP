@@ -40,7 +40,7 @@ class MeetupForm extends Form implements InputFilterProviderInterface
         ]);
 
         $this->add([
-            'type' => Element\DateTimeSelect::class,
+            'type' => Element\Date::class,
             'name' => 'datedebut',
             'options' => [
                 'label' => 'Date Debut',
@@ -48,7 +48,7 @@ class MeetupForm extends Form implements InputFilterProviderInterface
         ]);
 
         $this->add([
-            'type' => Element\DateTimeSelect::class,
+            'type' => Element\Date::class,
             'name' => 'datefin',
             'options' => [
                 'label' => 'Date Fin',
@@ -80,31 +80,31 @@ class MeetupForm extends Form implements InputFilterProviderInterface
                 ],
             ],
             'datedebut' => [
-               /* 'validators' => [
+               'validators' => [
                     [
                         'name' => Date::class,
                     ],
-                ],*/
+                ],
                 'filters' => [
                     [
                         'name' => 'Zend\Filter\DatetimeFormatter',
                         'options' => [
-                            'format' => 'Y-m-d H:i:s',
+                            'format' => 'Y-m-d',
                         ],
                     ]
                 ]
             ],
             'datefin' => [
-              /*  'validators' => [
+               'validators' => [
                     [
                         'name' => Date::class,
                     ],
-                ],*/
+                ],
                 'filters' => [
                     [
                         'name' => 'Zend\Filter\DatetimeFormatter',
                         'options' => [
-                            'format' => 'Y-m-d H:i:s',
+                            'format' => 'Y-m-d',
                         ],
                     ]
                 ]
