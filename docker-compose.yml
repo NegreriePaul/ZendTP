@@ -25,3 +25,13 @@ services:
       - MYSQL_DATABASE=demo
       - MYSQL_USER=demo
       - MYSQL_PASSWORD=demo
+  myadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+        - "8081:80"
+    environment:
+        - PMA_ARBITRARY=1
+        - PMA_HOST=database
+    restart: always
+    depends_on:
+        - database

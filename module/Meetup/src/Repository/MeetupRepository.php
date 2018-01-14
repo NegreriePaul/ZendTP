@@ -6,19 +6,31 @@ namespace Meetup\Repository;
 
 use Meetup\Entity\Meetup;
 use Doctrine\ORM\EntityRepository;
+use DoctrineModule\Stdlib\Hydrator\DoctrineObject as DoctrineHydrator;
 //use Zend\Form\Element\Date;
 
 final class MeetupRepository extends EntityRepository
 {
 
-    public function add($meetup) : void
+    public function delete(string $id): void
     {
-        $this->getEntityManager()->persist($meetup);
-        $this->getEntityManager()->flush($meetup);
+        $this->getEntityManager()->remove($this->find($id));
+        $this->getEntityManager()->flush();
     }
 
-    public function createFilmFromNameAndDescription(string $name, string $description,  $datedebut , $datefin)
+  /*  public function createFilmFromNameAndDescription(string $name, string $description)
     {
-        return new Meetup($name, $description ,$datedebut ,$datefin);
+        return new Meetup($name, $description );
+    }*/
+
+    public function createMeetup($meetup) : void
+    {
+        $createMeetup = new Meetup();
+        /** @var $hydrator DoctrineHydrator  */
+        $hydrator = new DoctrineHydrator($this->getEntityManager());
+        $hydrator->hydrate($meetup, $createMeetup);
+        $this->getEntityManager()->persist($createMeetup);
+        $this->getEntityManager()->flush($createMeetup);
     }
+
 }

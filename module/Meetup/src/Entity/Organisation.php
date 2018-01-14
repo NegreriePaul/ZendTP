@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @package Application\Entity
  * @ORM\Entity(repositoryClass="\Meetup\Repository\MeetupRepository")
- * @ORM\Table(name="films")
+ * @ORM\Table(name="organisations")
  */
 class Organisation
 {

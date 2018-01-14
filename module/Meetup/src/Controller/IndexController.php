@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Meetup\Controller;
 
-use Meetup\Entity\Meetup;
+
 use Meetup\Repository\MeetupRepository;
 use Meetup\Form\MeetupForm;
 use Zend\Http\PhpEnvironment\Request;
@@ -45,13 +45,8 @@ final class IndexController extends AbstractActionController
         if ($request->isPost()) {
             $form->setData($request->getPost());
             if ($form->isValid()) {
-                $meetup = $this->meetupRepository->createFilmFromNameAndDescription(
-                    $form->getData()['title'],
-                    $form->getData()['description'] ?? '',
-                    $form->getData()['datedebut'] ,//->format('Y-m-d')
-                    $form->getData()['datefin'] //->format('Y-m-d')
-                );
-                $this->meetupRepository->add($meetup);
+                $meetup = $this->meetupRepository->createMeetup($form->getData());
+                //$this->meetupRepository->add($meetup);
                 return $this->redirect()->toRoute('meetups');
             }
         }
@@ -62,4 +57,45 @@ final class IndexController extends AbstractActionController
             'form' => $form,
         ]);
     }
+
+
+    public function deleteAction()
+    {
+        /* @var $request Request */
+        $request = $this->getRequest();
+        /** @var $id string */
+        $id = (string)$request->getPost('id');
+        if (empty($id)) {
+            die("impossible de supprimer");
+        }
+        $this->meetupRepository->delete($id);
+        return $this->redirect()->toRoute('meetups');
+    }
+
+
+
+    public function editAction()
+    {
+        $form = $this->meetupForm;
+        $id = $this->params()->fromRoute('id');
+        $meetup = $this->meetupRepository->find($id);
+        $form->bind($meetup);
+        /* @var $request Request */
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+            $form->setData($request->getPost());
+            if ($form->isValid()) {
+                $this->meetupRepository->createMeetup($form->getData());
+                return $this->redirect()->toRoute('meetups');
+            }
+        }
+
+
+        $form->prepare();
+        return new ViewModel([
+            'form' => $form,
+            'meetup' => $meetup,
+        ]);
+    }
+
 }

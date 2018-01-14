@@ -3,8 +3,10 @@
 declare(strict_types=1);
 
 use Meetup\Form\MeetupForm;
+use Meetup\Form\MeetupFormFactory;
 use Zend\Router\Http\Literal;
 use Meetup\Controller;
+use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
 
 return [
@@ -30,10 +32,30 @@ return [
                             ],
                         ],
                     ],
+                    'delete' => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route'    => '/delete',
+                            'defaults' => [
+                                'action'     => 'delete',
+                            ],
+                        ],
+                    ],
+                    'edit' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route'    => '/edit/:id',
+                            'defaults' => [
+                                'action'     => 'edit',
+                            ],
+                        ],
+                    ],
                 ],
             ],
         ],
     ],
+
+
     'controllers' => [
         'factories' => [
             Controller\IndexController::class => Controller\IndexControllerFactory::class,
@@ -48,6 +70,7 @@ return [
         'template_map' => [
             'meetup/index/index' => __DIR__ . '/../view/meetup/index/index.phtml',
             'meetup/index/add' => __DIR__ . '/../view/meetup/index/add.phtml',
+            'meetup/index/edit' => __DIR__ . '/../view/meetup/index/edit.phtml',
         ],
     ],
     'doctrine' => [

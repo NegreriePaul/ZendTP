@@ -47,21 +47,31 @@ class Meetup
     private $datefin;
 
 
-    public function __construct(string $title, string $description = '', DateTimeSelect $datedebut , DateTimeSelect $datefin)
+    public function __construct()
     {
         $this->id = Uuid::uuid4()->toString();
-        $this->title = $title;
-        $this->description = $description;
-        $this->datedebut = $datedebut;
-        $this->datefin = $datefin;
+
     }
 
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
     /**
      * @return string
      */
     public function getTitle() : string
     {
         return $this->title;
+    }
+
+    public function setTitle(string $title) :void
+    {
+        $this->title = $title;
     }
     /**
      * @return string
@@ -87,7 +97,7 @@ class Meetup
     /**
      * @param mixed $datedebut
      */
-    public function setDatedebut(datetime $datedebut) : void
+    public function setDatedebut(\DateTime $datedebut) : void
     {
         $this->datedebut = $datedebut;
     }
@@ -103,11 +113,10 @@ class Meetup
     /**
      * @param mixed $datefin
      */
-    public function setDatefin(datetime $datefin) : void
+    public function setDatefin(\Datetime $datefin) : void
     {
         $this->datefin = $datefin;
     }
-
 
 
 

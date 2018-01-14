@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Meetup\Form;
 
+
 use Zend\Form\Element;
 use Zend\Form\Form;
 use Zend\InputFilter\InputFilterProviderInterface;
+use Zend\Validator\Date;
 use Zend\Validator\StringLength;
 
 class MeetupForm extends Form implements InputFilterProviderInterface
@@ -14,6 +16,7 @@ class MeetupForm extends Form implements InputFilterProviderInterface
     public function __construct()
     {
         parent::__construct('meetup');
+
 
         $this->add([
             'type' => Element\Text::class,
@@ -70,6 +73,36 @@ class MeetupForm extends Form implements InputFilterProviderInterface
                         ],
                     ],
                 ],
+            ],
+            'datedebut' => [
+               /* 'validators' => [
+                    [
+                        'name' => Date::class,
+                    ],
+                ],*/
+                'filters' => [
+                    [
+                        'name' => 'Zend\Filter\DatetimeFormatter',
+                        'options' => [
+                            'format' => 'Y-m-d H:i:s',
+                        ],
+                    ]
+                ]
+            ],
+            'datefin' => [
+              /*  'validators' => [
+                    [
+                        'name' => Date::class,
+                    ],
+                ],*/
+                'filters' => [
+                    [
+                        'name' => 'Zend\Filter\DatetimeFormatter',
+                        'options' => [
+                            'format' => 'Y-m-d H:i:s',
+                        ],
+                    ]
+                ]
             ],
         ];
     }
