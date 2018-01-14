@@ -6,14 +6,14 @@
 
 <?= $this->form()->openTag($form); ?>
 
-<?= $this->formRow($form->get('title')) ?>
+<?= $this->formRow($form->get('title')->setAttribute('class', 'form-control')) ?>
 
-<?= $this->formRow($form->get('description')) ?>
+<?= $this->formRow($form->get('description')->setAttribute('class', 'form-control')) ?>
 
-<?= $this->formRow($form->get('datedebut')) ?>
+<?= $this->formRow($form->get('datedebut')->setAttribute('class', 'form-control')) ?>
 
-<?= $this->formRow($form->get('datefin')) ?>
+<?= $this->formRow($form->get('datefin')->setAttribute('class', 'form-control')) ?>
 
-<?= $this->formInput($form->get('submit')) ?>
+<?= $this->formInput($form->get('submit')->setAttribute('class', 'btn btn-primary')) ?>
 
 <?= $this->form()->closeTag($form); ?>
