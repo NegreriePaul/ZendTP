@@ -18,19 +18,20 @@ final class MeetupRepository extends EntityRepository
         $this->getEntityManager()->flush();
     }
 
-  /*  public function createFilmFromNameAndDescription(string $name, string $description)
-    {
-        return new Meetup($name, $description );
-    }*/
 
-    public function createMeetup($meetup) : void
+    public function createMeetup($meetup): void
     {
-        $createMeetup = new Meetup();
-        /** @var $hydrator DoctrineHydrator  */
-        $hydrator = new DoctrineHydrator($this->getEntityManager());
-        $hydrator->hydrate($meetup, $createMeetup);
-        $this->getEntityManager()->persist($createMeetup);
-        $this->getEntityManager()->flush($createMeetup);
+        if (!is_array($meetup)) {
+            $createMeetup = $this->find($meetup->getId());
+        } else {
+            $createMeetup = new Meetup();
+            /** @var $hydrator DoctrineHydrator */
+            $hydrator = new DoctrineHydrator($this->getEntityManager());
+            $hydrator->hydrate($meetup, $createMeetup);
+        }
+
+            $this->getEntityManager()->persist($createMeetup);
+            $this->getEntityManager()->flush($createMeetup);
+
     }
-
 }

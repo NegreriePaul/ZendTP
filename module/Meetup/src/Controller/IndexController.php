@@ -45,8 +45,7 @@ final class IndexController extends AbstractActionController
         if ($request->isPost()) {
             $form->setData($request->getPost());
             if ($form->isValid()) {
-                $meetup = $this->meetupRepository->createMeetup($form->getData());
-                //$this->meetupRepository->add($meetup);
+                $this->meetupRepository->createMeetup($form->getData());
                 return $this->redirect()->toRoute('meetups');
             }
         }
@@ -85,13 +84,15 @@ final class IndexController extends AbstractActionController
         if ($request->isPost()) {
             $form->setData($request->getPost());
             if ($form->isValid()) {
-                $this->meetupRepository->createMeetup($form->getData());
+               $this->meetupRepository->createMeetup($form->getData());
                 return $this->redirect()->toRoute('meetups');
             }
         }
 
 
         $form->prepare();
+
+
         return new ViewModel([
             'form' => $form,
             'meetup' => $meetup,
